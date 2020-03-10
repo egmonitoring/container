@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: "DaemonSet"
+metadata:
+  name: egagent
+  labels:
+    app: egagent  
+spec:
+  selector:
+    matchLabels:
+      app: egagent 
+  template:
+    metadata:
+      labels:
+        app: egagent
+    spec:
+      volumes:
+      - name: docker
+        hostPath:
+          path: /var/run/docker.sock
+      - name: process
+        hostPath:
+          path: /proc
+      - name: host-root
+        hostPath:
+          path: /
+      - name: btmmount
+        hostPath: 
+          path: /opt/egbtm
+          type: DirectoryOrCreate
+      containers:
+      - name: egagent
+        image: eginnovations/714 
+        securityContext:
+          privileged: true
+        env:
+        - name: EG_MANAGER
+          value: ""
+        - name: EG_MANAGER_PORT
+          value: ""
+        - name: EG_MANAGER_SSL
+          value: ""
+        - name: JVM_MEMORY
+          value: "512"
+        volumeMounts:
+        - name: docker
+          mountPath: /var/run/docker.sock
+        - name: process
+          mountPath: /media/proc
+        - name: host-root
+          mountPath: /mnt
+        - name: btmmount
+          mountPath: /opt/egbtm
+        
+      hostIPC: true
+      hostNetwork: true
+      hostPID: true

@@ -29,7 +29,7 @@ spec:
           type: DirectoryOrCreate
       containers:
       - name: egagent
-        image: eginnovations/714 
+        image: eginnovations/716 
         securityContext:
           privileged: true
         env:

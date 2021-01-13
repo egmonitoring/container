@@ -41,7 +41,7 @@ spec:
           type: DirectoryOrCreate
       containers:
       - name: egagent
-        image: egapm/egagent_714:latest 
+        image: eginnovations/716:latest 
         securityContext:
           privileged: true
         env:
@@ -52,7 +52,7 @@ spec:
         - name: EG_MANAGER_SSL
           value: ""
         - name: JVM_MEMORY
-          value: ""
+          value: "512"
         - name: EG_AGENT_IDENTIFIER_ID
           value: ""
         volumeMounts:
